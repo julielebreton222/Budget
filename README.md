@@ -3,7 +3,7 @@
 A personal budgeting app: **spend less, earn more, save more.**
 Built for iPhone first, works on the Mac too. Everything stays on your device.
 
-**Live app:** https://julielebreton222.github.io/budget/
+**Live app:** https://julielebreton222.github.io/Budget/
 
 ## Put it on your iPhone
 
