@@ -163,7 +163,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   max-width: 560px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   height: var(--tab-h);
   padding: 0 max(8px, env(safe-area-inset-left));
 }
@@ -601,3 +601,37 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .rule { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 0; }
 .rule-text { min-width: 0; overflow-wrap: anywhere; font-size: 14px; }
 .settings-btns .btn { font-size: 16px; padding: 0 14px; white-space: nowrap; }
+
+/* ---------- Subscriptions ---------- */
+
+.subs-total { display: grid; grid-template-columns: 1.4fr 1fr 0.7fr; gap: 10px; align-items: end; }
+.subs-big { font-size: 30px; font-weight: 600; color: var(--accent); line-height: 1.1; }
+.sub { border-bottom: 1px solid var(--line); }
+.sub:last-child { border-bottom: 0; }
+.sub-main {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+.sub-text { min-width: 0; display: grid; }
+.sub-meta { font-size: 13px; color: var(--muted); font-weight: 700; }
+.sub-price { font-size: 17px; font-weight: 500; display: block; }
+.sub.off .txn-desc, .sub.off .sub-price { color: var(--muted); }
+.sub.off .txn-emoji { filter: grayscale(0.7); opacity: 0.7; }
+.sub-detail { padding: 0 0 14px 50px; }
+.sub-detail p { margin: 0 0 8px; }
+.sub-charges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.sub-charge { font-size: 12.5px; padding: 3px 9px; border-radius: 999px; background: var(--card-soft); border: 1px solid var(--line); }
+.good-text { color: var(--mint); font-weight: 800; font-size: 14px; }
+.tip { margin: 10px 8px 0; }
+.hidden-subs { margin: 18px 0 10px; text-align: center; }
+.link-btn { border: 0; background: none; color: var(--accent); font-weight: 800; padding: 10px; min-height: 44px; }
+.hidden-subs .card { text-align: left; margin-top: 6px; }
+.tab { font-size: 11.5px; }
+.sub-raw { font-size: 12px; opacity: 0.8; overflow-wrap: anywhere; }

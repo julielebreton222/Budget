@@ -30,6 +30,7 @@ export type Settings = {
   incomeGoal: number
   jarGoal: number
   merchantRules: MerchantRule[]
+  hiddenSubs: string[] // merchant keys marked "not a subscription"
   // Balance anchors from imported statements, used for the "balance matches" check.
   openingBalance?: number // balance before the earliest imported transaction
   openingDate?: string

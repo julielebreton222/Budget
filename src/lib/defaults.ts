@@ -6,4 +6,5 @@ export const defaultSettings = (): Settings => ({
   incomeGoal: 600,
   jarGoal: 300,
   merchantRules: [],
+  hiddenSubs: [],
 })

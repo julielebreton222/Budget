@@ -1,4 +1,4 @@
-export type Tab = 'home' | 'budget' | 'jar' | 'activity'
+export type Tab = 'home' | 'budget' | 'subs' | 'jar' | 'activity'
 
 const icons: Record<Tab, React.ReactNode> = {
   home: (
@@ -9,6 +9,14 @@ const icons: Record<Tab, React.ReactNode> = {
       <rect x="4" y="13" width="4" height="7" rx="2" />
       <rect x="10" y="8" width="4" height="12" rx="2" />
       <rect x="16" y="4" width="4" height="16" rx="2" />
+    </>
+  ),
+  subs: (
+    <>
+      <path d="M17 2.5 20.5 6 17 9.5" />
+      <path d="M3.5 11V9.5A3.5 3.5 0 0 1 7 6h13.5" />
+      <path d="M7 21.5 3.5 18 7 14.5" />
+      <path d="M20.5 13v1.5A3.5 3.5 0 0 1 17 18H3.5" />
     </>
   ),
   jar: (
@@ -27,7 +35,7 @@ const icons: Record<Tab, React.ReactNode> = {
   ),
 }
 
-const labels: Record<Tab, string> = { home: 'Home', budget: 'Budget', jar: 'Jar', activity: 'Activity' }
+const labels: Record<Tab, string> = { home: 'Home', budget: 'Budget', subs: 'Subs', jar: 'Jar', activity: 'Activity' }
 
 export default function TabBar({ tab, onChange }: { tab: Tab; onChange: (t: Tab) => void }) {
   return (
