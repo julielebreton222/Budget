@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from 'react'
 import { PurseArt } from '../components/EmptyArt'
 import MonthSwitcher from '../components/MonthSwitcher'
 import CategorySheet from '../components/CategorySheet'
+import Settings from '../components/Settings'
 import { BY_NAME, CATEGORIES, REVIEW } from '../data/categories'
 import { useStore } from '../lib/store'
 import type { ImportResult } from '../lib/wise'
@@ -195,6 +196,8 @@ export default function Activity() {
           )}
         </>
       )}
+
+      <Settings />
 
       {editing && (
         <CategorySheet
