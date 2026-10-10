@@ -479,3 +479,93 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .ring-card { grid-template-columns: 1fr; justify-items: center; }
   .mini-cards { grid-template-columns: 1fr 1fr; }
 }
+
+/* ---------- Jar ---------- */
+
+:root { --jar-glass: rgba(255, 255, 255, 0.6); --jar-line: #f2a9c9; }
+@media (prefers-color-scheme: dark) { :root { --jar-glass: rgba(255, 220, 240, 0.08); --jar-line: #a8578f; } }
+
+.jar-card { text-align: center; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 35%, var(--lilac-soft), var(--card) 65%); }
+.jar-wrap { position: relative; width: 200px; margin: 0 auto; }
+.jar-svg { width: 200px; height: 250px; display: block; }
+.jar-wrap .sparkles { top: 50%; }
+.jar-wave path { animation: wave 3.5s linear infinite; }
+@keyframes wave { to { transform: translateX(100px); } }
+.jar-coin { animation: bob 3s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-3px); } }
+.jar-twinkle { transform-box: fill-box; transform-origin: center; animation: twinkle 2.4s ease-in-out infinite; }
+.jar-twinkle.t2 { animation-delay: 1.2s; }
+@keyframes twinkle { 50% { transform: scale(0.6); opacity: 0.5; } }
+.jar-total { font-size: 40px; font-weight: 600; color: var(--accent); line-height: 1.1; margin-top: 4px; }
+.jar-goal { margin: 6px 0 14px; }
+.jar-goal .target-btn { font-size: 14px; color: var(--muted); }
+.level-up { font-family: var(--font-head); font-weight: 600; font-size: 18px; color: var(--accent); margin: 0 0 12px; animation: pop 0.5s cubic-bezier(0.2, 1.6, 0.4, 1); }
+@keyframes pop { from { transform: scale(0.6); opacity: 0; } }
+.big-btn { min-height: 56px; font-size: 19px; padding: 0 30px; }
+.btn.full { width: 100%; margin-top: 8px; }
+.center { text-align: center; }
+
+.conversions .conv { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; font-size: 18px; }
+.list-title { font-size: 19px; margin: 18px 6px 8px; }
+.skip-row { grid-template-columns: 40px 1fr auto 36px; }
+.skip-meta { font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jar-amt { color: var(--accent); }
+.icon-btn.del { width: 36px; height: 36px; font-size: 14px; box-shadow: none; background: var(--card-soft); color: var(--muted); }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 14px);
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 10px 10px 18px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  max-width: calc(100% - 32px);
+  white-space: nowrap;
+}
+.toast button { border: 0; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-weight: 800; padding: 8px 14px; }
+
+/* ---------- Forms ---------- */
+
+.form { display: grid; gap: 14px; padding-bottom: 6px; }
+.field { display: grid; align-content: start; gap: 6px; font-weight: 800; font-size: 14px; }
+.field > span { color: var(--muted); }
+.field input:not([type='checkbox']) {
+  min-height: 48px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0 14px;
+  width: 100%;
+  min-width: 0;
+}
+.field input:focus { outline: none; border-color: var(--accent); }
+.field input[aria-invalid='true'] { border-color: var(--rasp); }
+.field .select { border-radius: var(--radius-sm); font-weight: 700; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.err { color: var(--rasp); font-weight: 700; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pick {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  font-weight: 700;
+  font-size: 14px;
+}
+.pick.on { border-color: var(--accent); background: var(--accent-soft); }
+.pick.mood { font-size: 22px; padding: 0 10px; min-width: 48px; }
+.field input::placeholder, .search::placeholder { color: var(--muted); opacity: 0.55; font-weight: 600; }
+.field input[type='date'] { -webkit-appearance: none; appearance: none; height: 48px; line-height: 44px; }
