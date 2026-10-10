@@ -36,3 +36,40 @@ export function balanceCheck(txns: Txn[], s: Settings) {
   const computed = Math.round((s.openingBalance + txns.reduce((a, t) => a + t.amount, 0)) * 100) / 100
   return { computed, expected: s.closingBalance, ok: Math.abs(computed - s.closingBalance) < 0.005 }
 }
+
+export const inMonth = (txns: Txn[], month: string) => txns.filter((t) => monthOf(t.date) === month)
+
+export type Status = 'under' | 'close' | 'over'
+
+/** Mint under 80%, pink from 80% to 100%, raspberry when over. */
+export function statusOf(spent: number, target: number): Status {
+  if (spent > target + 0.005) return 'over'
+  if (target > 0 && spent >= target * 0.8) return 'close'
+  return 'under'
+}
+
+/** Days in the month and days still to go (counting today) relative to `today`. */
+export function monthDays(month: string, today = new Date()) {
+  const y = +month.slice(0, 4)
+  const m = +month.slice(5, 7)
+  const total = new Date(y, m, 0).getDate()
+  const cur = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`
+  const left = month < cur ? 0 : month > cur ? total : total - today.getDate() + 1
+  return { total, left }
+}
+
+/** Spending per category for each of the `n` months ending at `month` (oldest first). */
+export function categoryHistory(txns: Txn[], month: string, n: number, shift: (m: string, d: number) => string) {
+  const months = Array.from({ length: n }, (_, i) => shift(month, i - n + 1))
+  const idx = new Map(months.map((m, i) => [m, i]))
+  const out: Record<string, number[]> = {}
+  for (const t of txns) {
+    const i = idx.get(monthOf(t.date))
+    if (i == null || groupOf(t.category) !== 'Expense') continue
+    ;(out[t.category] ??= Array(n).fill(0))[i] -= t.amount
+  }
+  return { months, series: out }
+}
+
+/** "Eating out & cafés" → "Eating out" for friendly sentences. */
+export const shortName = (name: string) => name.split(/ & | \(|, /)[0]
