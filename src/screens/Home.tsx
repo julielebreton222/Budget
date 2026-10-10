@@ -1,10 +1,11 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { Tab } from '../components/TabBar'
 import { PurseArt } from '../components/EmptyArt'
 import MonthSwitcher from '../components/MonthSwitcher'
 import Ring from '../components/Ring'
 import Bar from '../components/Bar'
 import Sparkles from '../components/Sparkles'
+import MonthDetail from '../components/MonthDetail'
 import { useStore } from '../lib/store'
 import { BUSINESS_INCOME, BY_NAME, EXPENSE_CATEGORIES, FROM_OWN } from '../data/categories'
 import { inMonth, monthDays, shortName, spentByCategory, statusOf, totals } from '../lib/calc'
@@ -12,6 +13,8 @@ import { euro, monthLabel, shiftMonth } from '../lib/format'
 
 export default function Home({ go }: { go: (t: Tab) => void }) {
   const { ready, txns, skipped, settings, month, setMonth } = useStore()
+  // null = Home; '' = month detail from the top; a category name = detail opened at that category
+  const [detail, setDetail] = useState<string | null>(null)
 
   const m = useMemo(() => {
     const cur = inMonth(txns, month)
@@ -64,6 +67,17 @@ export default function Home({ go }: { go: (t: Tab) => void }) {
           <button className="btn" onClick={() => go('activity')}>Import a statement</button>
         </div>
       </section>
+    )
+
+  if (detail !== null)
+    return (
+      <MonthDetail
+        focus={detail || undefined}
+        onBack={() => {
+          setDetail(null)
+          window.scrollTo(0, 0)
+        }}
+      />
     )
 
   const spentStatus = statusOf(m.t.spending, m.budget)
@@ -127,7 +141,7 @@ export default function Home({ go }: { go: (t: Tab) => void }) {
           <p className="muted">No spending in {monthLabel(month)} yet ✦</p>
         ) : (
           m.top.map((r) => (
-            <div key={r.name} className="cat-row">
+            <button key={r.name} className="cat-row link-row" onClick={() => setDetail(r.name)}>
               <div className="cat-row-head">
                 <span className="cat-name"><span aria-hidden="true">{BY_NAME.get(r.name)?.emoji}</span> {r.name}</span>
                 <span className="num nowrap">
@@ -135,9 +149,12 @@ export default function Home({ go }: { go: (t: Tab) => void }) {
                 </span>
               </div>
               <Bar value={r.target > 0 ? r.spent / r.target : 1} status={statusOf(r.spent, r.target)} label={r.name} />
-            </div>
+            </button>
           ))
         )}
+        <button className="btn soft full detail-btn" onClick={() => setDetail('')}>
+          See my month in detail ›
+        </button>
       </div>
 
       <div className={'card goal-card' + (goalHit ? ' hit' : '')}>

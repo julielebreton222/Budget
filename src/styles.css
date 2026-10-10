@@ -635,3 +635,41 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .hidden-subs .card { text-align: left; margin-top: 6px; }
 .tab { font-size: 11.5px; }
 .sub-raw { font-size: 12px; opacity: 0.8; overflow-wrap: anywhere; }
+
+/* ---------- Month in detail ---------- */
+
+.link-row { display: block; width: 100%; border: 0; background: none; padding: 0; text-align: left; }
+.detail-btn { margin-top: 14px; }
+.detail-top { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.detail-top .screen-title { margin: 0; }
+.detail-sum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.detail-tools { display: flex; justify-content: space-between; align-items: center; margin: 0 4px -6px; }
+.detail-cat { border-bottom: 1px solid var(--line); scroll-margin-top: 16px; }
+.detail-cat:last-child { border-bottom: 0; }
+.detail-cat-head {
+  display: grid;
+  grid-template-columns: 40px 1fr auto 14px;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0 8px;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+.detail-cat-name { min-width: 0; display: grid; }
+.detail-cat-sum { font-size: 17px; font-weight: 600; white-space: nowrap; }
+.detail-cat-sum.in { color: var(--mint); }
+.chev { color: var(--accent); font-weight: 800; font-size: 20px; transition: transform 0.2s; }
+.chev.up { transform: rotate(90deg); }
+.detail-bar { padding: 0 0 12px 50px; }
+.detail-txns { margin: 0 0 12px 50px; border-left: 3px solid var(--accent-soft); padding-left: 10px; }
+.detail-txn { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+.detail-txn:last-child { border-bottom: 0; }
+.detail-txn-main { min-width: 0; }
+.detail-txn-desc { font-weight: 700; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.detail-txn-amt { font-size: 15px; font-weight: 500; white-space: nowrap; text-align: right; }
+.detail-txn-amt.in { color: var(--mint); font-weight: 600; }
+.chip.move { grid-column: 2; justify-self: end; margin: 0; font-size: 11.5px; min-height: 26px; padding: 2px 10px; }
+.detail-txn-main { grid-row: span 2; align-self: center; }
+.detail-txn { padding: 7px 0; }
