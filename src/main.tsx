@@ -12,5 +12,7 @@ createRoot(document.getElementById('root')!).render(
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {})
+    // Fetch the statement reader once so the service worker caches it for offline imports.
+    setTimeout(() => import('./lib/wise'), 3000)
   })
 }
