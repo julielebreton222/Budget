@@ -20,3 +20,9 @@ export function shiftMonth(ym: string, delta: number) {
   const d = new Date(+ym.slice(0, 4), +ym.slice(5, 7) - 1 + delta, 1)
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 }
+
+/** Today as "YYYY-MM-DD" in local time. */
+export function todayStr() {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}

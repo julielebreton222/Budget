@@ -74,6 +74,17 @@ function useStoreState() {
     [state.settings],
   )
 
+  /** Add or replace a transaction entered by hand. */
+  const saveTxn = useCallback(async (t: Txn) => {
+    setState((s) => ({ ...s, txns: [...s.txns.filter((x) => x.id !== t.id), t] }))
+    await db.putTxns([t])
+  }, [])
+
+  const deleteTxn = useCallback(async (id: string) => {
+    setState((s) => ({ ...s, txns: s.txns.filter((x) => x.id !== id) }))
+    await db.deleteTxn(id)
+  }, [])
+
   const addSkipped = useCallback(async (item: Skipped) => {
     setState((s) => ({ ...s, skipped: [...s.skipped, item] }))
     await db.putSkipped(item)
@@ -90,8 +101,8 @@ function useStoreState() {
   }, [])
 
   return useMemo(
-    () => ({ ...state, month, setMonth, importFile, setCategory, updateSettings, addSkipped, removeSkipped, replaceAll }),
-    [state, month, importFile, setCategory, updateSettings, addSkipped, removeSkipped, replaceAll],
+    () => ({ ...state, month, setMonth, importFile, setCategory, updateSettings, saveTxn, deleteTxn, addSkipped, removeSkipped, replaceAll }),
+    [state, month, importFile, setCategory, updateSettings, saveTxn, deleteTxn, addSkipped, removeSkipped, replaceAll],
   )
 }
 

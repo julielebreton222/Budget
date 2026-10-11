@@ -9,7 +9,7 @@ export type Txn = {
   category: string
   original?: string // e.g. "4,043 CRC" when paid in another currency
   manual?: boolean // category changed by hand; imports and rules never overwrite it
-  kind?: string // Wise "Transaction Details Type": CARD, DEPOSIT, TRANSFER, MONEY_ADDED, CONVERSION
+  kind?: string // Wise "Transaction Details Type": CARD, DEPOSIT, TRANSFER, MONEY_ADDED, CONVERSION; MANUAL when added by hand
   note?: string // Wise payment reference
 }
 
@@ -31,6 +31,7 @@ export type Settings = {
   jarGoal: number
   merchantRules: MerchantRule[]
   hiddenSubs: string[] // merchant keys marked "not a subscription"
+  customTargets?: Record<string, number> // "My budget" saved in Settings
   // Balance anchors from imported statements, used for the "balance matches" check.
   openingBalance?: number // balance before the earliest imported transaction
   openingDate?: string

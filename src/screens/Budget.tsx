@@ -39,7 +39,8 @@ export default function Budget({ go }: { go: (t: Tab) => void }) {
   const targets = settings.targets
   const totalTarget = EXPENSE_CATEGORIES.reduce((a, c) => a + (targets[c.name] ?? 0), 0)
   const totalSpent = EXPENSE_CATEGORIES.reduce((a, c) => a + (spent[c.name] ?? 0), 0)
-  const preset = same(targets, STEP2) ? 'step2' : same(targets, STEP1) ? 'step1' : null
+  const custom = settings.customTargets
+  const preset = custom && same(targets, custom) ? 'custom' : same(targets, STEP2) ? 'step2' : same(targets, STEP1) ? 'step1' : null
 
   function startEdit(name: string) {
     setEditing(name)
@@ -68,7 +69,10 @@ export default function Budget({ go }: { go: (t: Tab) => void }) {
           <span className="muted">Targets:</span>
           <button className={'btn small ' + (preset === 'step1' ? '' : 'soft')} onClick={() => updateSettings({ targets: STEP1 })}>Step 1</button>
           <button className={'btn small ' + (preset === 'step2' ? '' : 'soft')} onClick={() => updateSettings({ targets: STEP2 })}>Step 2</button>
-          {!preset && <span className="muted small">custom</span>}
+          {custom && (
+            <button className={'btn small ' + (preset === 'custom' ? '' : 'soft')} onClick={() => updateSettings({ targets: custom })}>My budget</button>
+          )}
+          {!preset && <span className="muted small">edited</span>}
         </div>
       </div>
 

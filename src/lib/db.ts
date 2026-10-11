@@ -40,6 +40,11 @@ export async function saveSettings(s: Settings) {
   await db.put('settings', s, SETTINGS_KEY)
 }
 
+export async function deleteTxn(id: string) {
+  const db = await dbPromise
+  await db.delete('txns', id)
+}
+
 export async function putSkipped(s: Skipped) {
   const db = await dbPromise
   await db.put('skipped', s)

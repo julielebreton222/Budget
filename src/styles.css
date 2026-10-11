@@ -673,3 +673,43 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .chip.move { grid-column: 2; justify-self: end; margin: 0; font-size: 11.5px; min-height: 26px; padding: 2px 10px; }
 .detail-txn-main { grid-row: span 2; align-self: center; }
 .detail-txn { padding: 7px 0; }
+
+/* ---------- Add by hand ---------- */
+
+.fab {
+  position: fixed;
+  right: max(16px, calc((100vw - 560px) / 2 + 16px));
+  bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 16px);
+  z-index: 15;
+  width: 60px;
+  height: 60px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1;
+  box-shadow: 0 8px 22px rgba(255, 61, 139, 0.45);
+  display: grid;
+  place-items: center;
+  transition: transform 0.12s ease;
+}
+.fab:active { transform: scale(0.94); }
+.fab:focus-visible { outline: 3px solid var(--lilac); outline-offset: 3px; }
+.segmented { display: grid; grid-template-columns: 1fr 1fr; background: var(--card); border-radius: 999px; padding: 4px; border: 2px solid var(--line); }
+.segmented button { min-height: 42px; border: 0; border-radius: 999px; background: none; font-weight: 800; color: var(--muted); }
+.segmented button.on { background: var(--accent); color: var(--accent-ink); }
+.segmented button.on.in { background: var(--mint); color: #fff; }
+.amount-field input { font-family: var(--font-head); font-size: 28px !important; min-height: 60px !important; }
+.hand-tag { font-size: 11px; font-weight: 800; color: var(--lilac); margin-left: 6px; white-space: nowrap; }
+.txn-desc-btn { border: 0; background: none; padding: 0; text-align: left; font: inherit; font-weight: 700; color: inherit; max-width: 100%; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.budget-editor .setting { padding: 6px 0; }
+.budget-editor .setting .cat-name { font-size: 14.5px; }
+.budget-editor .euro-input input { width: 84px; min-height: 42px; }
+.editor-actions { position: sticky; bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 8px); background: var(--card); padding-top: 12px; margin-top: 8px; }
+/* keep clear of the + button */
+.toast { bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 92px); }
+.editor-actions { padding-right: 70px; }
+.editor-actions .btn { flex: 1 1 0; }

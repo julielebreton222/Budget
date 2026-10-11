@@ -92,3 +92,14 @@ describe('statement import', () => {
     expect(again).toMatchObject({ added: 0, skipped: 4 })
   })
 })
+
+describe('balanceCheck', () => {
+  it('ignores entries added by hand', () => {
+    const s = { ...defaultSettings(), openingBalance: 100, closingBalance: 90 }
+    const txns = [
+      { id: 'C-1|2026-10-01|-10.00', date: '2026-10-01', description: 'Lidl', amount: -10, category: 'Groceries & household' },
+      { id: 'MANUAL-1', date: '2026-10-02', description: 'Cash coffee', amount: -3, category: 'Eating out & cafés', kind: 'MANUAL' },
+    ]
+    expect(balanceCheck(txns, s)?.ok).toBe(true)
+  })
+})

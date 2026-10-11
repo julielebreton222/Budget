@@ -120,7 +120,10 @@ export default function MonthDetail({ focus, onBack }: Props) {
                             {list.map((x) => (
                               <div key={x.id} className="detail-txn">
                                 <div className="detail-txn-main">
-                                  <div className="detail-txn-desc">{x.description}</div>
+                                  <div className="detail-txn-desc">
+                                    {x.description}
+                                    {x.kind === 'MANUAL' && <span className="hand-tag">by hand</span>}
+                                  </div>
                                   <div className="sub-meta">
                                     {dayLabel(x.date)}
                                     {x.original ? ` · ${x.original}` : ''}

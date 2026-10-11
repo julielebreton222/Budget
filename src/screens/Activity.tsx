@@ -3,6 +3,7 @@ import { PurseArt } from '../components/EmptyArt'
 import MonthSwitcher from '../components/MonthSwitcher'
 import CategorySheet from '../components/CategorySheet'
 import Settings from '../components/Settings'
+import AddTxnSheet from '../components/AddTxnSheet'
 import { BY_NAME, CATEGORIES, REVIEW } from '../data/categories'
 import { useStore } from '../lib/store'
 import type { ImportResult } from '../lib/wise'
@@ -14,11 +15,12 @@ const ALL = '__all'
 const NEEDS_REVIEW = '__review'
 
 export default function Activity() {
-  const { ready, txns, settings, month, setMonth, importFile, setCategory } = useStore()
+  const { ready, txns, settings, month, setMonth, importFile, setCategory, saveTxn, deleteTxn } = useStore()
   const fileRef = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState(ALL)
   const [editing, setEditing] = useState<Txn | null>(null)
+  const [editingHand, setEditingHand] = useState<Txn | null>(null)
   const [result, setResult] = useState<ImportResult | null>(null)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
@@ -174,7 +176,13 @@ export default function Activity() {
                       <div key={t.id} className="txn">
                         <span className="txn-emoji" aria-hidden="true">{cat?.emoji ?? '❓'}</span>
                         <div className="txn-main">
-                          <div className="txn-desc">{t.description}</div>
+                          {t.kind === 'MANUAL' ? (
+                            <button className="txn-desc-btn" onClick={() => setEditingHand(t)} aria-label={`Edit ${t.description}`}>
+                              {t.description} <span className="hand-tag">✎ by hand</span>
+                            </button>
+                          ) : (
+                            <div className="txn-desc">{t.description}</div>
+                          )}
                           <button
                             className={'chip' + (t.category === REVIEW ? ' review' : '') + (cat?.group === 'Funding' ? ' funding' : '')}
                             onClick={() => setEditing(t)}
@@ -198,6 +206,21 @@ export default function Activity() {
       )}
 
       <Settings />
+
+      {editingHand && (
+        <AddTxnSheet
+          txn={editingHand}
+          onClose={() => setEditingHand(null)}
+          onSave={(t) => {
+            saveTxn(t)
+            setEditingHand(null)
+          }}
+          onDelete={(id) => {
+            deleteTxn(id)
+            setEditingHand(null)
+          }}
+        />
+      )}
 
       {editing && (
         <CategorySheet

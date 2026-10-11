@@ -33,7 +33,9 @@ export function spentByCategory(txns: Txn[]) {
 /** Opening balance + every amount should land on the latest Running Balance. */
 export function balanceCheck(txns: Txn[], s: Settings) {
   if (s.openingBalance == null || s.closingBalance == null) return null
-  const computed = Math.round((s.openingBalance + txns.reduce((a, t) => a + t.amount, 0)) * 100) / 100
+  // Entries added by hand (cash, other accounts) aren't in Wise, so they don't count here.
+  const wise = txns.filter((t) => t.kind !== 'MANUAL')
+  const computed = Math.round((s.openingBalance + wise.reduce((a, t) => a + t.amount, 0)) * 100) / 100
   return { computed, expected: s.closingBalance, ok: Math.abs(computed - s.closingBalance) < 0.005 }
 }
 

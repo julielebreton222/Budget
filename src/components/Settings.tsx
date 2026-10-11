@@ -3,6 +3,7 @@ import { useStore } from '../lib/store'
 import { defaultSettings } from '../lib/defaults'
 import { downloadBackup, makeBackup, parseBackup, type Backup } from '../lib/backup'
 import { euro } from '../lib/format'
+import BudgetEditor from './BudgetEditor'
 
 function GoalInput({ label, value, onSave }: { label: string; value: number; onSave: (n: number) => void }) {
   const [draft, setDraft] = useState(String(value))
@@ -79,6 +80,8 @@ export default function Settings() {
         <GoalInput label="Typewriting income goal / month" value={settings.incomeGoal} onSave={(n) => updateSettings({ incomeGoal: n })} />
         <GoalInput label="Jar goal" value={settings.jarGoal} onSave={(n) => updateSettings({ jarGoal: n })} />
       </div>
+
+      <BudgetEditor />
 
       {settings.merchantRules.length > 0 && (
         <div className="card">
